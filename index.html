@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script></script>
+    <style>
+      .container{
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+      }
+      .labeled{
+        display: flex;
+        flex-direction: column;
+      }
+      .labeled input{
+        width: 200px;
+        height: 40px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" class="filterText" placeholder="Buscar" />
+    <div>
+        <ol id="lista"><ol>
+    </div>
+  </body>
+  <script>
+    const list = [{
+      nome:'samuel',
+      profissao:"Engenheiro de software"
+    }, {
+nome:"moreira",
+profissao:"cantor"
+    },{nome:"Gilvan", profissao:"professor"}];
+
+    var fillUpList = (filterString) => {
+        
+        const filterData = filterString ? list.
+        filter((pessoa)=> pessoa.nome.toLowerCase().includes(filterString.toLowerCase()) ) 
+        : list
+
+        document.getElementById("lista").innerHTML = filterData
+        .map(
+            (user) =>
+            `
+            <div class="container">
+            <div class="labeled">
+              <label>Nome</label>
+            <input   value=${user.nome} >
+              </div>
+            <div class="labeled">
+            <label>Profissao</label>
+            <input  value=${user.profissao} >
+            </div>
+            </div>
+            <br>
+            `
+        )
+        .join("");
+    }
+
+    fillUpList()
+    const input = document.querySelector(".filterText");
+    input.addEventListener("keyup", (event) => {
+      event.preventDefault();
+      fillUpList(event.target.value);
+    });
+  </script>
+</html>
